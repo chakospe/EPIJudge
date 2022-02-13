@@ -1,7 +1,10 @@
+import bisect
 import collections
 import functools
+import itertools
 import math
 from typing import List
+import random
 
 from test_framework import generic_test
 from test_framework.random_sequence_checker import run_func_with_retries
@@ -10,8 +13,28 @@ from test_framework.test_utils import enable_executor_hook
 
 def nonuniform_random_number_generation(values: List[int],
                                         probabilities: List[float]) -> int:
-    # TODO - you fill in here.
-    return 0
+    r, k, s = random.random(), 0, probabilities[0]
+    while r > s:
+        k += 1
+        s += probabilities[k]
+    return values[k]
+
+# avg/med: 1 s/1 s
+# def nonuniform_random_number_generation(values: List[int],
+#                                         probabilities: List[float]) -> int:
+#     prefix_sum_of_probabilities = list(itertools.accumulate(probabilities))
+#     interval_idx = bisect.bisect(prefix_sum_of_probabilities, random.random())
+#     return values[interval_idx]
+
+# avg/med: 251 ms/254 ms
+# def nonuniform_random_number_generation(values: List[int],
+#                                         probabilities: List[float]) -> int:
+#     r = random.random()
+#     k, s = 0, probabilities[0]
+#     while r > s:
+#         k += 1
+#         s += probabilities[k]
+#     return values[k]
 
 
 @enable_executor_hook

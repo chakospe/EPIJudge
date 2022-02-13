@@ -7,8 +7,27 @@ from test_framework.test_utils import enable_executor_hook
 
 # Returns the number of valid entries after deletion.
 def delete_duplicates(A: List[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+    num_valid, prev, prev_idx = 0, float('inf'), -1
+    for i in range(len(A)):
+        if A[i] != prev:
+            num_valid += 1
+            prev = A[i]
+            A[prev_idx + 1] = A[i]
+            prev_idx += 1
+    A = A[:(1 + num_valid)]
+    return num_valid
+
+# avg/med: 14 us/5 us
+# def delete_duplicates(A: List[int]) -> int:
+#     num_valid, prev, prev_idx = 0, float('inf'), -1
+#     for i in range(len(A)):
+#         if A[i] != prev:
+#             num_valid += 1
+#             prev = A[i]
+#             A[prev_idx + 1] = A[i]
+#             prev_idx += 1
+#     A = A[:(1 + num_valid)]
+#     return num_valid
 
 
 @enable_executor_hook

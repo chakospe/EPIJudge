@@ -9,8 +9,43 @@ RED, WHITE, BLUE = range(3)
 
 
 def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
-    # TODO - you fill in here.
+    l, e, g = -1, -1, -1
+    pivot = A[pivot_index]
+    while g < len(A) - 1:
+        g += 1
+        j = g
+        if A[j] <= pivot:
+            temp = A[e + 1]
+            A[e + 1] = A[j]
+            A[j] = temp
+            e += 1
+            j = e
+        if A[j] < pivot:
+            temp = A[l + 1]
+            A[l + 1] = A[j]
+            A[j] = temp
+            l += 1
     return
+
+# avg/med: 128 us/10 us
+# def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
+#     l, e, g = -1, -1, -1
+#     pivot = A[pivot_index]
+#     while g < len(A) - 1:
+#         g += 1
+#         j = g
+#         if A[j] <= pivot:
+#             temp = A[e + 1]
+#             A[e + 1] = A[j]
+#             A[j] = temp
+#             e += 1
+#             j = e
+#         if A[j] < pivot:
+#             temp = A[l + 1]
+#             A[l + 1] = A[j]
+#             A[j] = temp
+#             l += 1
+#     return
 
 
 @enable_executor_hook

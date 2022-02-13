@@ -2,7 +2,10 @@ from test_framework import generic_test
 
 
 def is_palindromic(s: str) -> bool:
-    # TODO - you fill in here.
+    return all(
+        s[i] == s[~i]
+        for i in range(len(s) // 2)
+    )
     return True
 
 

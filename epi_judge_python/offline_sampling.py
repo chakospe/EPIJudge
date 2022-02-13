@@ -9,8 +9,19 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def random_sampling(k: int, A: List[int]) -> None:
-    # TODO - you fill in here.
+    import random
+    for i in range(k):
+        r = random.randint(i, len(A) - 1)
+        A[i], A[r] = A[r], A[i]
     return
+
+# avg/med: 256 us/257 us
+# def random_sampling(k: int, A: List[int]) -> None:
+#     import random
+#     for i in range(k):
+#         r = random.randint(i, len(A) - 1)
+#         A[i], A[r] = A[r], A[i]
+#     return
 
 
 @enable_executor_hook

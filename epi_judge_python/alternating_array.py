@@ -7,8 +7,81 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def rearrange(A: List[int]) -> None:
-    # TODO - you fill in here.
+    def swap(a, i, j) -> None:
+        temp = a[i]
+        a[i] = a[j]
+        a[j] = temp
+        return
+    if len(A) == 1:
+        return
+    if len(A) == 2:
+        A[0] = min(A[0], A[1])
+        A[1] = max(A[0], A[1])
+        return
+    for i in range(1, len(A) - 1):
+        if i % 2 == 0:
+            if A[i] > A[i - 1]:
+                swap(A, i - 1, i)
+            elif A[i] > A[i + 1]:
+                swap(A, i, i + 1)
+        else:
+            if A[i] < A[i - 1]:
+                swap(A, i - 1, i)
+            elif A[i] < A[i + 1]:
+                swap(A, i, i + 1)
     return
+
+
+# avg/med: 155 us/9 us
+# def rearrange(A: List[int]) -> None:
+#     def swap(a, i, j) -> None:
+#         temp = a[i]
+#         a[i] = a[j]
+#         a[j] = temp
+#         return
+#     if len(A) == 1:
+#         return
+#     if len(A) == 2:
+#         A[0] = min(A[0], A[1])
+#         A[1] = max(A[0], A[1])
+#         return
+#     for i in range(1, len(A) - 1):
+#         if i % 2 == 0:
+#             if A[i] > A[i - 1]:
+#                 swap(A, i - 1, i)
+#             elif A[i] > A[i + 1]:
+#                 swap(A, i, i + 1)
+#         else:
+#             if A[i] < A[i - 1]:
+#                 swap(A, i - 1, i)
+#             elif A[i] < A[i + 1]:
+#                 swap(A, i, i + 1)
+#     return
+
+
+# avg/med: 446 us/23 us
+# def rearrange(A: List[int]) -> None:
+#     def swap(a, i, j) -> None:
+#         temp = a[i]
+#         a[i] = a[j]
+#         a[j] = temp
+#         return
+#     if len(A) == 1:
+#         return
+#     if len(A) == 2:
+#         A[0] = min(A[0], A[1])
+#         A[1] = max(A[0], A[1])
+#         return
+#     for i in range(1, len(A) - 1):
+#         if i % 2 == 0:
+#             smallest = min(A[(i - 1):(i + 2)])
+#             idx = A.index(smallest, i - 1, i + 2)
+#             swap(A, i, idx)
+#         else:
+#             biggest = max(A[(i - 1):(i + 2)])
+#             idx = A.index(biggest, i - 1, i + 2)
+#             swap(A, idx, i)
+#     return
 
 
 @enable_executor_hook

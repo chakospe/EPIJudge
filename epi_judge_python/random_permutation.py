@@ -1,6 +1,7 @@
 import copy
 import functools
 import math
+import random
 from typing import List
 
 from test_framework import generic_test
@@ -10,8 +11,19 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def compute_random_permutation(n: int) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    permutation = list(range(n))
+    for i in range(n):
+        r = random.randrange(i, n)
+        permutation[i], permutation[r] = permutation[r], permutation[i]
+    return permutation
+
+# avg/med: 3 s/3 s
+# def compute_random_permutation(n: int) -> List[int]:
+#     permutation = list(range(n))
+#     for i in range(n):
+#         r = random.randrange(i, n)
+#         permutation[i], permutation[r] = permutation[r], permutation[i]
+#     return permutation
 
 
 @enable_executor_hook
