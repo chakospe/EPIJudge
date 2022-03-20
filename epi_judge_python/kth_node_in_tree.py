@@ -16,8 +16,15 @@ class BinaryTreeNode:
 
 def find_kth_node_binary_tree(tree: BinaryTreeNode,
                               k: int) -> Optional[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return None
+    if not tree:
+        return None
+    ls = tree.left.size if tree.left else 0
+    if k <= ls:
+        return find_kth_node_binary_tree(tree.left, k)
+    if k > 1 + ls:
+        return find_kth_node_binary_tree(tree.right, k - 1 - ls)
+    return tree
+
 
 
 @enable_executor_hook
