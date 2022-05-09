@@ -1,6 +1,8 @@
 import functools
+import heapq
 import math
 from typing import Iterator, List
+import itertools
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
@@ -27,9 +29,28 @@ class Star:
         return math.isclose(self.distance, rhs.distance)
 
 
+# Average running time:  248 us
+# Median running time:    48 us
 def find_closest_k_stars(stars: Iterator[Star], k: int) -> List[Star]:
-    # TODO - you fill in here.
-    return []
+    max_heap, stars = [], iter(stars)
+    for x in itertools.islice(stars, k):
+        heapq.heappush(max_heap, (-x.distance, x))
+    for x in stars:
+        if -x.distance > max_heap[0][0]:
+            heapq.heapreplace(max_heap, (-x.distance, x))
+    return [s[1] for s in max_heap]
+
+
+# Average running time:  404 us
+# Median running time:    51 us
+# def find_closest_k_stars(stars: Iterator[Star], k: int) -> List[Star]:
+#     max_heap = []
+#     for star in stars:
+#         heapq.heappush(max_heap, (-star.distance, star))
+#         while len(max_heap) >= k + 1:
+#             heapq.heappop(max_heap)
+#     return [s[1] for s in max_heap]
+
 
 
 def comp(expected_output, output):
